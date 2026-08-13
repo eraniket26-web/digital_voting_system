@@ -43,7 +43,13 @@ def logVote(name) :
 
   
 #    print(f'Exisitng names in list', existing_names)
-   return voting_dictonary
+   return jsonify ({'msg': "Your vote has been successfully recorded."})
+
+
+@app.route('/results')
+def displayResults():
+    return voting_dictonary
+
 
 if __name__ == '__main__':
     app.run(debug=True)
