@@ -15,7 +15,7 @@ def healthCheck() :
     return 'App is running'
 
 
-@app.route('/vote/<string:name>',methods=['GET'])
+@app.route('/vote/<string:name>',methods=['POST'])
 def logVote(name) :
 
    existing_names = []
@@ -43,12 +43,17 @@ def logVote(name) :
 
   
 #    print(f'Exisitng names in list', existing_names)
-   return jsonify ({'msg': "Your vote has been successfully recorded."})
+   return jsonify ({'msg': "Your vote has been successfully recorded."}, 200)
 
 
 @app.route('/results')
 def displayResults():
     return voting_dictonary
+
+@app.route('/reset')
+def resetVotes() :
+    voting_dictonary.clear()
+    return jsonify({'msg': 'Votes record reset successfully'}, 200)
 
 
 if __name__ == '__main__':
