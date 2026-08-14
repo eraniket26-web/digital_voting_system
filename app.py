@@ -8,16 +8,22 @@ voting_dictonary = {
 
 @app.route('/')
 def context() :
-    return 'Welcome to the App'
+    return jsonify({'msg':'Welcome to the App'}),200
 
 @app.route('/health')
 def healthCheck() :
-    return 'App is running'
+    return jsonify({'msg':'App is running'}),200
 
 
 @app.route('/vote/<string:name>',methods=['POST'])
 def logVote(name) :
 
+  # Verify name should not be empty 
+   if not name.strip():
+       return jsonify({
+            'error': 'Candidate name cannot be empty.'
+        }), 400
+   
    existing_names = []
    count = 0
    # Step 1 :- Collect the existing name from collection
@@ -43,7 +49,7 @@ def logVote(name) :
 
   
 #    print(f'Exisitng names in list', existing_names)
-   return jsonify ({'msg': "Your vote has been successfully recorded."}, 200)
+   return jsonify ({'msg': "Your vote has been successfully recorded."}), 200
 
 
 @app.route('/results')
@@ -53,7 +59,7 @@ def displayResults():
 @app.route('/reset')
 def resetVotes() :
     voting_dictonary.clear()
-    return jsonify({'msg': 'Votes record reset successfully'}, 200)
+    return jsonify({'msg': 'Votes record reset successfully'}), 200
 
 
 if __name__ == '__main__':
