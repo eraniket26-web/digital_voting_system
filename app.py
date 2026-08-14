@@ -15,7 +15,7 @@ def healthCheck() :
     return 'App is running'
 
 
-@app.route('/vote/<string:name>',methods=['GET'])
+@app.route('/vote/<string:name>',methods=['POST'])
 def logVote(name) :
 
    existing_names = []
